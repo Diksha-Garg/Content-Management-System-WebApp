@@ -4,32 +4,32 @@
 <table class="table table-bordered">
 
     <thead>
-    <tr>
+        <tr>
 
-        <th>Id</th>
-        <th>File</th>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Category</th>
-        <th>Allow Comments</th>
-        <th>Date</th>
 
-    </tr>
+            <th>File</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Category</th>
+            <th>Allow Comments</th>
+            <th>Date</th>
+
+        </tr>
     </thead>
 
     <tbody>
 
-    {{#each posts}}
+        {{#each posts}}
 
         <tr>
 
-            <td>{{id}}</td>
+
             <td><img height="50" class="img-responsive" src="/uploads/{{file}}" alt=""></td>
             <td>{{title}}</td>
             <td>{{status}}</td>
             <td>{{category.name}}</td>
             <td>{{allowComments}}</td>
-            
+
             <td>{{generateDate date "MMMM Do YYYY" }}</td>
             <td><a href="/post/{{id}}" class="btn btn-success">View</a></td>
             <td><a href="/admin/posts/edit/{{id}}" class="btn btn-info">Edit</a></td>
@@ -47,7 +47,7 @@
         </tr>
 
 
-    {{/each}}
+        {{/each}}
     </tbody>
 
 

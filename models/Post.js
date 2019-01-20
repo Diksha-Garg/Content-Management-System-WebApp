@@ -1,34 +1,23 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 //const URLSlugs = require('mongoose-url-slugs');
 
+const Schema = mongoose.Schema;
 
-const Schema  = mongoose.Schema;
-
-
-const PostSchema = new Schema({
-
-
-   user: {
-
-       type: Schema.Types.ObjectId,
-       ref:'users'
-
-   },
-
- category: {
-
-        type: Schema.Types.ObjectId,
-        ref: 'categories'
-
+const PostSchema = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "users"
+    },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: "categories"
     },
 
-
-    title:{
-
-        type: String,
-        required: true
-
+    title: {
+      type: String,
+      required: true
     },
 
     /*slug: {
@@ -38,63 +27,40 @@ const PostSchema = new Schema({
 
     },*/
 
-
-    status:{
-
-        type: String,
-        default: 'public'
-
+    status: {
+      type: String,
+      default: "public"
     },
 
-
-    allowComments:{
-
-        type: Boolean,
-        require: true
-
+    allowComments: {
+      type: Boolean,
+      require: true
     },
 
-
-    body:{
-
-        type: String,
-        require: true
-
+    body: {
+      type: String,
+      require: true
     },
 
-
-    file:{
-
-        type: String,
-
-
+    file: {
+      type: String
     },
 
     date: {
-
-        type: Date,
-        default: Date.now()
-
+      type: Date,
+      default: Date.now()
     },
 
-
-
-    comments: [{
-
+    comments: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'comments'
-
-
-    }]
-
-
-
-
-
-
-}, {usePushEach: true}
+        ref: "comments"
+      }
+    ]
+  },
+  { usePushEach: true }
 );
 
 //PostSchema.plugin(URLSlugs('title', {field: 'slug'}));
 
-module.exports = mongoose.model('posts', PostSchema);
+module.exports = mongoose.model("posts", PostSchema);

@@ -1,56 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>CMS Home -Content Management Site</title>
+  <title>CMS Home -Content Management Site</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="/css/bootstrap.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="/css/blog-home.css" rel="stylesheet">
-   <link href="/css/blog-post.css" rel="stylesheet">
-  </head>
+  <!-- Custom styles for this template -->
+  <link href="/css/blog-home.css" rel="stylesheet">
+  <link href="/css/blog-post.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
-  <body>
+<body>
 
-    <!-- Navigation -->
-   {{>home/home-nav}}
-<!-- Page Content -->
-    <div class="container">
-{{#if errors}}
-{{#each errors}}
+  <!-- Navigation -->
+  {{>home/home-nav}}
+  <!-- Page Content -->
+  <div class="container">
+    {{#if errors}}
+    {{#each errors}}
 
-<div class="alert alert-danger">
-  {{message}}
-</div>
-
-
-{{/each}}
+    <div class="alert alert-danger">
+      {{message}}
+    </div>
 
 
+    {{/each}}
 
-{{/if}}
 
-{{>home/form-msgs}}
 
-{{{body}}}
-    
-</div>
-    <!-- /.container -->
-    <!-- Footer -->
-   {{>home/footer}}
+    {{/if}}
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="/js/jquery/jquery.js"></script>
-    <script src="/js/jquery/bootstrap.bundle.js"></script>
+    {{>home/form-msgs}}
 
-  </body>
+    {{{body}}}
+
+  </div>
+  <!-- /.container -->
+  <!-- Footer -->
+  {{>home/footer}}
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="/js/jquery/jquery.js"></script>
+  <script src="/js/jquery/bootstrap.bundle.js"></script>
+
+</body>
 
 </html>

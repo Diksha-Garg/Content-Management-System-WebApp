@@ -16,7 +16,7 @@
 
     <!-- Date/Time -->
     <p>Posted on {{generateDate post.date "MMMM Do YYYY"}}</p>
-
+    <p>Category: {{post.categories.name}}</p>
     <hr>
 
     <!-- Preview Image -->
@@ -29,9 +29,9 @@
 
     <blockquote class="blockquote">
       <div class="card-story">
-        <div class="card-content">
+        <p class="card-text">
           {{{post.body}}}
-        </div>
+        </p>
       </div>
     </blockquote>
 
@@ -76,9 +76,11 @@
 
     <!-- Single Comment -->
     <div class="media mb-4">
-      <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+      <!-- <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">-->
+      <i class="fa fa-user-circle-o" style="font-size:24px"></i>
       <div class="media-body">
         <h5 class="mt-0">{{user.firstName}}</h5>
+        <i class="fa fa-comment" style="font-size:19px"></i>
         {{body}}
       </div>
     </div>
@@ -94,15 +96,23 @@
     <div class="card my-4">
       <h5 class="card-header">Search</h5>
       <div class="card-body">
-        <div class="input-group">
+        {{!-- <div class="input-group">
           <input type="text" class="form-control" placeholder="Search for...">
           <span class="input-group-btn">
             <button class="btn btn-secondary" type="button">Go!</button>
           </span>
-        </div>
+        </div> --}}
+        <form action="/" method="GET" class="form-inline">
+          <div class="form-group">
+            <input name="search" type="text" placeholder="Search" class="form-control">
+            <span class="input-group-btn"></span>
+            <input type="submit" value="Search" class="btn btn-secondary">
+            </span>
+          </div>
+
+        </form>
       </div>
     </div>
-
     <!-- Categories Widget -->
     <div class="card my-4">
       <h5 class="card-header">Categories</h5>
@@ -129,10 +139,9 @@
 
     <!-- Side Widget -->
     <div class="card my-4">
-      <h5 class="card-header">Side Widget</h5>
+      <h5 class="card-header">Content Management Site</h5>
       <div class="card-body">
-        You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap
-        4 card containers!
+        You can post ,create and see other people posts and review them.
       </div>
     </div>
 

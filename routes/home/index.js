@@ -3,6 +3,8 @@ const router = express.Router();
 const Post = require("../../models/Post");
 const Category = require("../../models/Category");
 const User = require("../../models/User");
+//const { stripTags } = require("../../helper/handlebars-helper");
+
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -11,23 +13,62 @@ router.all("/*", (req, res, next) => {
   next();
 });
 router.get("/", (req, res) => {
+  //eval(require("locus"));
+
   const perPage = 10;
   const page = req.query.page || 1;
-  Post.find({ status: "public" })
-    .skip(perPage * page - perPage)
-    .limit(perPage)
-    .then(posts => {
-      Post.count().then(postCount => {
-        Category.find({}).then(categories => {
-          res.render("home/index", {
-            posts: posts,
-            categories: categories,
-            current: parseInt(page),
-            pages: Math.ceil(postCount / perPage)
+
+  if (req.query.search) {
+    // console.log(req.query);
+    //console.log(req.query.search);
+    const regex = new RegExp(escapeRegex(req.query.search), "gi");
+    console.log(regex);
+    //Post.find({ status: "public", title: regex  })
+    Post.find({
+      status: "public",
+      $or: [{ title: regex }, { body: regex }, { categoryType: regex }]
+    })
+      // .skip(perPage * page - perPage)
+      // .limit(perPage)
+      .then(posts => {
+        console.log(posts.length);
+        if (posts.length < 1) {
+          req.flash(
+            "error_message",
+            "No keywords match your query,please try again"
+          );
+          res.redirect("/");
+        } else {
+          console.log(posts.length);
+          Post.count().then(postCount => {
+            Category.find({}).then(categories => {
+              res.render("home/index", {
+                posts: posts,
+                categories: categories
+                // current: parseInt(page),
+                // pages: Math.ceil(postCount / perPage)
+              });
+            });
+          });
+        }
+      });
+  } else {
+    Post.find({ status: "public" })
+      .skip(perPage * page - perPage)
+      .limit(perPage)
+      .then(posts => {
+        Post.count().then(postCount => {
+          Category.find({}).then(categories => {
+            res.render("home/index", {
+              posts: posts,
+              categories: categories,
+              current: parseInt(page),
+              pages: Math.ceil(postCount / perPage)
+            });
           });
         });
       });
-    });
+  }
 });
 router.get("/about", (req, res) => {
   res.render("home/about");
@@ -146,5 +187,7 @@ router.get("/post/:id", (req, res) => {
       });
     });
 });
-
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 module.exports = router;

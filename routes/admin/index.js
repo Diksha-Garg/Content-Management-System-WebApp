@@ -1,34 +1,34 @@
-const express=require('express');
-const router=express.Router();
+const express = require("express");
+const router = express.Router();
 //var Chart = require('chart.js');
-const {  userAuthenticated }=require('../../helper/authentication');
+const { userAuthenticated } = require("../../helper/authentication");
 //const faker=require('faker');
 const Post = require("../../models/Post");
-const Category = require('../../models/Category');
-const Comment = require('../../models/Comment');
-router.all("/*",userAuthenticated,(req,res,next)=>{
-    req.app.locals.layout='admin';
-    next();
-})
-router.get('/',(req,res)=>{
+const Category = require("../../models/Category");
+const Comment = require("../../models/Comment");
+router.all("/*", userAuthenticated, (req, res, next) => {
+  req.app.locals.layout = "admin";
+  next();
+});
+router.get("/", (req, res) => {
+  const promises = [
+    Post.count().exec(),
+    Category.count().exec(),
+    Comment.count().exec()
+  ];
 
-   
-    const promises = [
-
-        Post.count().exec(),
-        Category.count().exec(),
-        Comment.count().exec()
-
-    ];
-
-
-    Promise.all(promises).then(([postCount, categoryCount, commentCount])=>{
-
-
-        res.render('admin/index', {postCount: postCount, categoryCount: categoryCount, commentCount: commentCount});
-
-
+  Promise.all(promises).then(([postCount, categoryCount, commentCount]) => {
+    res.render("admin/index", {
+      postCount: postCount,
+      categoryCount: categoryCount,
+      commentCount: commentCount
     });
+  });
+  // Post.find({ user: req.user.id })
+  //   .populate("category")
+  //   .then(posts => {
+  //     res.render("admin/index", { posts: posts.count().exec() });
+  //   });
 });
 
 /*router.post('/generate-fake-posts',(req,res)=>{
@@ -50,4 +50,4 @@ router.get('/',(req,res)=>{
     //res.send("It works");
 });*/
 
-module.exports=router;
+module.exports = router;
