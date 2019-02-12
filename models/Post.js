@@ -20,11 +20,10 @@ const PostSchema = new Schema(
       required: true
     },
 
-    /*slug: {
-
-        type: String
-
-
+    /*categoryName: {
+      type: String,
+      required: true,
+      ref: "categories"
     },*/
 
     status: {

@@ -62,6 +62,7 @@ router.post("/create", (req, res) => {
     body: req.body.editor,
     //body:req.body.editor.getContents(),
     category: req.body.category,
+    name: req.body.name,
     file: filename
   });
   newPost
@@ -69,7 +70,7 @@ router.post("/create", (req, res) => {
     .then(savedPost => {
       req.flash("success_message", `Post was created successfully`);
       //console.log(savedPost);
-      res.redirect("/admin/posts");
+      res.redirect("/admin/posts/my-posts");
     })
     .catch(error => {
       console.log("not saved");

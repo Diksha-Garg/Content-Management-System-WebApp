@@ -15,21 +15,21 @@ router.all("/*", (req, res, next) => {
 router.get("/", (req, res) => {
   //eval(require("locus"));
 
-  const perPage = 10;
+  const perPage = 3;
   const page = req.query.page || 1;
-
   if (req.query.search) {
     // console.log(req.query);
     //console.log(req.query.search);
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
     console.log(regex);
     //Post.find({ status: "public", title: regex  })
+
     Post.find({
       status: "public",
-      $or: [{ title: regex }, { body: regex }, { categoryType: regex }]
+      $or: [{ title: regex }, { body: regex }]
     })
-      // .skip(perPage * page - perPage)
-      // .limit(perPage)
+      //.skip(perPage * page - perPage)
+      //.limit(perPage)
       .then(posts => {
         console.log(posts.length);
         if (posts.length < 1) {
@@ -176,15 +176,23 @@ router.post("/register", (req, res) => {
 });
 router.get("/post/:id", (req, res) => {
   Post.findOne({ _id: req.params.id })
-    .populate({ path: "comments", populate: { path: "user", model: "users" } })
+    .populate({
+      path: "comments",
+      populate: {
+        path: "user",
+        model: "users"
+      }
+    })
     .populate("user")
+    .populate("category")
+
     .then(post => {
-      Category.find({}).then(categories => {
-        res.render("home/post", {
-          post: post,
-          categories: categories
-        });
+      // Category.find({}).then(category => {
+      res.render("home/post", {
+        post: post
+        //category: category
       });
+      //});
     });
 });
 function escapeRegex(text) {

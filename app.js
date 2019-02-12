@@ -24,7 +24,8 @@ app.use(express.static(path.join(__dirname, "public")));
 const {
   generateDate,
   paginate,
-  stripTags
+  stripTags,
+  truncate
 } = require("./helper/handlebars-helper");
 app.engine(
   "handlebars",
@@ -33,7 +34,8 @@ app.engine(
     helpers: {
       generateDate: generateDate,
       paginate: paginate,
-      stripTags: stripTags
+      stripTags: stripTags,
+      truncate: truncate
     }
   })
 );

@@ -8,13 +8,7 @@
     {{message}}
 
 </div>
-
-
-
 {{/each}}
-
-
-
 <form action="/admin/posts/create" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="title">Title</label>
@@ -28,14 +22,15 @@
 
     <div class="form-group">
         <label for="status">Category</label>
-        <select name="category" id="status" class="form-control">
+        <select name="category" id="categoryName" class="form-control">
 
 
             {{#each categories}}
 
-            <option value="{{id}}">{{name}}</option>
+            <option value="{{id}}" name="category[name]">{{name}}</option>
 
             {{/each}}
+
 
         </select>
     </div>
